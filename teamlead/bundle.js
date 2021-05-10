@@ -1731,6 +1731,9 @@
   function xy(x3, y) {
     return {x: x3, y};
   }
+  function clamp(x3, min, max) {
+    return Math.min(max, Math.max(min, x3));
+  }
   function image_from_url(url) {
     const resource = image_cache.get(url);
     if (resource) {
@@ -3212,6 +3215,8 @@
       let line_height = 0;
       let center_text = false;
       return {
+        x: x3,
+        y,
         message_font(value) {
           message_font = value;
         },
@@ -3663,9 +3668,13 @@ ${deadline_stats_message(true)}`);
       }
       case 3: {
         let draw_standup_avatar = function(img, name, title) {
-          const x3 = game.canvas_width / 2 - avatar_side / 2;
-          const y = game.canvas_height - 840;
           const ctx2 = current_context();
+          push_font(18);
+          const name_width = ctx2.measureText(name).width;
+          pop_font();
+          const avatar_side = Math.max(name_width + 30, default_avatar_side * clamp(game.canvas_height / 900, 0.65, 1));
+          const x3 = game.canvas_width / 2 - avatar_side / 2;
+          const y = menu.y - avatar_side - 70;
           const rect = path_rounded_rect(x3, y, avatar_side, avatar_side + 60, 4);
           ctx2.shadowBlur = 8;
           ctx2.shadowColor = `rgba(119, 119, 119, 1)`;
@@ -3675,7 +3684,6 @@ ${deadline_stats_message(true)}`);
           push_clip(rect);
           ctx2.drawImage(img.img, x3, y, avatar_side, avatar_side);
           push_font(18);
-          const name_width = ctx2.measureText(name).width;
           const name_x = x3 + avatar_side / 2 - name_width / 2;
           const name_y = y + avatar_side + 16;
           ctx2.fillStyle = "#000";
@@ -3692,7 +3700,7 @@ ${deadline_stats_message(true)}`);
         };
         const queue = overlay.queue;
         const teammate = queue[0];
-        const avatar_side = 256;
+        const default_avatar_side = 256;
         const menu = big_centered_menu(0.45, 750);
         if (teammate) {
           let continue_to_next_teammate = function() {
@@ -4147,7 +4155,7 @@ ${i18n.overlay.game_over.message.restart()}`);
       set_layout_cursor(game.canvas_width / 2 - w / 2, game.canvas_height / 2 - h / 2);
     }
     function scale_dimension(original, min_ratio) {
-      const ratio = Math.min(1, Math.max(min_ratio, game.canvas_height / 900));
+      const ratio = clamp(game.canvas_height / 900, min_ratio, 1);
       return original * ratio;
     }
     switch (app.type) {
