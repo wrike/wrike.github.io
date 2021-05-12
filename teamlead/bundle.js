@@ -4252,10 +4252,6 @@ ${i18n.overlay.game_over.message.restart()}`);
       return i18n.status.burnout.good();
     return i18n.status.burnout.perfect();
   }
-  function update_canvas_size(ctx) {
-    ctx.canvas.width = game.canvas_width;
-    ctx.canvas.height = game.canvas_height;
-  }
   function draw_image_cover(image, x3, y, w, h) {
     const ctx = current_context();
     const image_w = image.img.width;
@@ -4283,9 +4279,6 @@ ${i18n.overlay.game_over.message.restart()}`);
   function do_one_frame() {
     game.canvas_width = window.innerWidth;
     game.canvas_height = window.innerHeight;
-    update_canvas_size(game.out);
-    update_canvas_size(game.overlay_ctx);
-    update_canvas_size(game.main_ctx);
     fix_canvas_dpi_scale(game.overlay_ctx);
     fix_canvas_dpi_scale(game.main_ctx);
     fix_canvas_dpi_scale(game.out, false);
@@ -4367,26 +4360,38 @@ ${i18n.overlay.game_over.message.restart()}`);
     game.time = time;
     do_one_frame();
   }
+  var canvas_cache = new WeakMap();
   function fix_canvas_dpi_scale(context, scale = true) {
+    function try_update_canvas_sizes(w, h, sw, sh) {
+      function set_and_save() {
+        canvas_cache.set(context, {w, h, sw, sh});
+        canvas.width = w;
+        canvas.height = h;
+        canvas.style.width = sw;
+        canvas.style.height = sh;
+        if (scale) {
+          context.scale(ratio, ratio);
+        }
+      }
+      const entry = canvas_cache.get(context);
+      if (entry == null) {
+        set_and_save();
+      } else {
+        if (entry.w != w || entry.h != h || entry.sw != sw || entry.sh != sh) {
+          set_and_save();
+        }
+      }
+    }
     const canvas = context.canvas;
-    const width = canvas.width;
-    const height = canvas.height;
+    const width = game.canvas_width;
+    const height = game.canvas_height;
     const devicePixelRatio = window.devicePixelRatio ?? 1;
     const backingStoreRatio = 1;
     const ratio = devicePixelRatio / backingStoreRatio;
     if (devicePixelRatio !== backingStoreRatio) {
-      canvas.width = width * ratio;
-      canvas.height = height * ratio;
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
+      try_update_canvas_sizes(width * ratio, height * ratio, width + "px", height + "px");
     } else {
-      canvas.width = width;
-      canvas.height = height;
-      canvas.style.width = "";
-      canvas.style.height = "";
-    }
-    if (scale) {
-      context.scale(ratio, ratio);
+      try_update_canvas_sizes(width, height, "", "");
     }
     return ratio;
   }
@@ -4726,12 +4731,10 @@ ${i18n.overlay.game_over.message.restart()}`);
       if (!context) {
         throw "Unable to create draw context";
       }
-      fix_canvas_dpi_scale(context);
       return context;
     }
     const overlay_ctx = create_additional_context();
     const main_ctx = create_additional_context(false);
-    const scale = fix_canvas_dpi_scale(backing_context, false);
     const days_until_deadline = 26;
     game = {
       canvas_width: base_width,
@@ -4756,7 +4759,7 @@ ${i18n.overlay.game_over.message.restart()}`);
       time: 0,
       frame_time: 0,
       blur: 0,
-      dpi_scale: scale,
+      dpi_scale: 1,
       difficulty: 0,
       day: 0,
       deadline_day: days_until_deadline,
@@ -4779,6 +4782,7 @@ ${i18n.overlay.game_over.message.restart()}`);
       inbox: [],
       apps: all_apps()
     };
+    game.dpi_scale = fix_canvas_dpi_scale(backing_context, false);
     const cursor_position_on_canvas = (event) => {
       const transform = backing_context.getTransform().inverse();
       const rect = backing_canvas.getBoundingClientRect();
