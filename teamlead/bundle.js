@@ -48,16 +48,16 @@
       },
       editor: {
         nothing_done: function(d) {
-          return "Nothing has been done in this task so far. Time to work?";
+          return "Nothing has been done in this task so far. Ready to work?";
         },
         lots_of_work: function(d) {
           return "The current task still has a lot of work to be done";
         },
         mostly_done: function(d) {
-          return "Most of the work for this task seems to be complete";
+          return "This task is close to being finished";
         },
         almost_there: function(d) {
-          return "This task has little work to be done";
+          return "This task has a little work to be done";
         },
         done: function(d) {
           return "The main code for the task is ready!";
@@ -66,7 +66,7 @@
           return "Work on the current task (1 hr)";
         },
         work_done_1: function(d) {
-          return "With a crack of your knuckles, you get to work. After an hour of continuous tapping on your keyboard, you finally reach the point where you can make a commit";
+          return "With a crack of your knuckles, you get to work. After an hour of continuous tapping on your keyboard, you finally reach the point where you can commit";
         },
         work_done_2: function(d) {
           return "Stretching in your chair, you get to work. After an hour of hard refactoring, you finally reach a point where you can commit";
@@ -84,20 +84,20 @@
           return "Finding a couple of bugs along the way, you test most of the code. You feel a little calmer";
         },
         qa_instructions_done: function(d) {
-          return "Trying to soothe your conscience, you describe the detailed changes made in the task and the areas that need to be thoroughly tested. This should simplify and accelerate the QA process";
+          return "You describe the detailed changes made in the task and the areas that need to be thoroughly tested. This should simplify and accelerate the QA process";
         },
         task_done: function(d) {
-          return "The current task is complete!";
+          return "You've finished your task!";
         },
         action: {
           pass_to_review: function(d) {
-            return "Submit the task for review";
+            return "Submit task for review";
           },
           write_tests: function(d) {
             return "Write tests (1 hr)";
           },
           write_qa_instructions: function(d) {
-            return "Write detailed instructions for QA (1 hour)";
+            return "Write detailed instructions for QA (1 hr)";
           },
           open_wrike_to_take_new_task: function(d) {
             return "Open Wrike and accept the next one";
@@ -110,7 +110,7 @@
       code_review: {
         look_at_code: {
           bad: function(d) {
-            return "You open " + x(d.name, "en", " genitive".trim()) + "'s task with the ever-sluggish GitPub. To be honest, the code looks awful";
+            return "You open " + x(d.name, "en", " genitive".trim()) + "'s task with the ever-sluggish GitPub. Honestly, the code looks awful";
           },
           not_too_bad: function(d) {
             return "You open " + x(d.name, "en", " genitive".trim()) + "'s task with the slowly working GitPub. The code looks quite messy";
@@ -120,13 +120,13 @@
           }
         },
         passed_to_qa_without_looking: function(d) {
-          return "Without thinking much, you set 'Review OK' and transfer the task to QA. You trust your team.";
+          return "You trust your team. Without thinking much, you approve the code and transfer the task to QA.";
         },
         found_bugs: function(d) {
-          return "Checking the code thoroughly, you find several bugs and controversial points. The task is returned to the developer.";
+          return "Thoroughly checking the code, you find several bugs and issues. The task is returned to the developer";
         },
         couldnt_find_bugs: function(d) {
-          return "Scrutinizing the code for a long time, you still can't find anything to complain about. The task is sent for testing";
+          return "After checking the code for a long time, you didn't find any issues. The task is sent for testing";
         },
         action: {
           pass_to_qa_without_looking: function(d) {
@@ -136,7 +136,7 @@
             return "Carefully check the code (1 hr)";
           },
           do_something_else: function(d) {
-            return "Think it over";
+            return "Do something else";
           }
         }
       },
@@ -146,7 +146,7 @@
             return "You";
           },
           working_on: function(d) {
-            return "For now I'm working on " + d.task;
+            return "Right now, I'm working on " + d.task;
           },
           will_take_next_task: function(d) {
             return "I accept the next task";
@@ -158,28 +158,28 @@
               return "I've worked on";
             },
             v2: function(d) {
-              return "I've tried to do";
+              return "I'm still working on";
             },
             v3: function(d) {
-              return "I've gotten stuck on";
+              return "I'm stuck on";
             },
             v4: function(d) {
-              return "I've worked on";
+              return "I'm trying to figure out";
             },
             v5: function(d) {
-              return "I've been slow on";
+              return "I've been slowly working on";
             },
             v6: function(d) {
-              return "I've dug into";
+              return "I'm still working on";
             },
             v7: function(d) {
-              return "I've tried to understand";
+              return "I'm trying to understand";
             },
             base: function(d) {
               return d.worked_on + " " + d.task;
             },
             stuck: function(d) {
-              return d.worked_on + " " + d.task + ", I've gotten a little stuck trying to figure it out";
+              return "I'm a little stuck on " + d.worked_on + " " + d.task + ". I'm trying to figure it out";
             },
             finishing_soon: function(d) {
               return d.worked_on + " " + d.task + ", I hope to finish it today";
@@ -187,19 +187,19 @@
           },
           finished_all_tasks: {
             v1: function(d) {
-              return "I've completed all my tasks and am waiting for the next one";
+              return "I've completed all my tasks, and I'm ready for the next one";
             },
             v2: function(d) {
-              return "All tasks are complete, what should I do next?";
+              return "All my tasks are done. What should I do next?";
             },
             v3: function(d) {
-              return "All previous tasks are completed, I'm ready to accept more";
+              return "All tasks are done. I'm ready to accept more";
             },
             v4: function(d) {
-              return "The previous task is completed, what should I do next?";
+              return "I've finished all my tasks. What should I work on next?";
             },
             v5: function(d) {
-              return "I've completed everything I worked on, I'm ready for a new task";
+              return "I've completed everything I was working on, and I'm ready for a new task";
             }
           }
         },
@@ -224,77 +224,77 @@
       calendar: {
         lunch: {
           message: function(d) {
-            return "The local diner was crowded more than usual today. After standing in line, you bought " + d.food + " and ate with gusto. [+Health]";
+            return "The company canteen was more crowded today than usual. After standing in line, you bought " + d.food + " and enjoyed your relaxing meal. [+Health]";
           },
           food: {
             v1: function(d) {
               return "pasta with chicken";
             },
             v2: function(d) {
-              return "mashed potatoes with goulash";
+              return "a burger with fries";
             },
             v3: function(d) {
-              return "soup";
+              return "a soup";
             },
             v4: function(d) {
-              return "cutlets";
+              return "pork chops with roasted potatoes";
             },
             v5: function(d) {
               return "a salad";
             },
             v6: function(d) {
-              return "fish";
+              return "a chicken sandwich";
             },
             v7: function(d) {
-              return "a slice of pizza";
+              return "a few slices of pizza";
             }
           }
         },
         standup: {
           info: function(d) {
-            return "At the daily standup, all team members share brief information about the work done on the previous day and current obstacles";
+            return "At the daily standup, all team members share some info about the work they did the day before and any roadblocks they may face";
           }
         },
         one_on_one: {
           info: function(d) {
-            return "At weekly One on One meetings, team members meet their line manager and discuss both work and personal issues in a free manner. This helps them to build trust and proactively identify potential problems";
+            return "At weekly One on One meetings, team members meet their line manager and freely discuss both work and personal issues. This helps them build trust and proactively identify potential problems";
           },
           message: function(d) {
-            return "The One on One meeting was productive. " + x(d.name, "en", " nominative".trim()) + " shared his feelings about deadlines and work success. You shared a piece of Team Lead wisdom and " + x(d.name, "en", " nominative".trim()) + " was clearly pleased with it [+Skill]";
+            return "The One on One meeting went well. " + x(d.name, "en", " nominative".trim()) + " shared their feelings about deadlines and work success. You shared a piece of Team Lead wisdom, and " + x(d.name, "en", " nominative".trim()) + " was clearly pleased with it [+Skill]";
           }
         },
         knowledge_sharing: {
           info: function(d) {
-            return "Knowledge Sharing is a weekly event where a developer covers a topic that is potentially useful to their colleagues. The topic of today's meeting is " + d.topic;
+            return "Knowledge Sharing is a weekly event where a developer covers a topic that may be useful for their coworkers. Today's meeting is about " + d.topic;
           },
           message: function(d) {
-            return "Sharing was very interesting today. You gain insights on " + d.topic + " and feel like you can do anything now [+Performance]";
+            return "The Knowledge Sharing meeting was very interesting today. You learn about on " + d.topic + " and feel like you can do anything now [+Performance]";
           }
         },
         interview: {
           info: function(d) {
-            return "It is your responsibility to participate in interviews with potential candidates, including candidates for other teams.";
+            return "It's your job to participate in interviews with potential candidates, including candidates for other teams.";
           },
           message: function(d) {
-            return "The interview was exhausting as always. But today's candidate, " + d.candidate_name + ", was pretty interesting.";
+            return "That went well. Today's candidate, " + d.candidate_name + ", was pretty interesting.";
           }
         },
         lead_meeting: {
           info: function(d) {
-            return "The weekly team lead sync is a kind of forum for quick communication among teams. You can always hear the latest news about the work of your colleagues or ask questions about cross-functionality";
+            return "The Team Lead Sync is a weekly meeting where you can quickly communicate with other team leads. You can hear the latest news about what your coworkers are working on and ask questions about cross-functional work";
           },
           message: function(d) {
-            return "There was nothing particularly interesting on today's sync";
+            return "Nothing particularly interesting happened in this week's sync";
           }
         },
         already_started: function(d) {
-          return "This meeting has already begun, you are late!";
+          return "This meeting started already, you're late!";
         },
         already_finished: function(d) {
           return "This event has already ended";
         },
         not_started_yet: function(d) {
-          return "This event has not started yet, you can join it later!";
+          return "This event hasn't started yet, you can join it later";
         },
         action: {
           lunch: function(d) {
@@ -316,7 +316,7 @@
             return "Join the meeting (1 hr)";
           },
           do_something_else: function(d) {
-            return "Think it over";
+            return "Do something else";
           }
         }
       },
@@ -327,23 +327,23 @@
           }
         },
         helped: function(d) {
-          return "Taking a fresh look at " + x(d.name, "en", " genitive".trim()) + "'s task, you quickly find the problem and help them with your advice [+Skill]";
+          return "Taking a fresh look at " + x(d.name, "en", " genitive".trim()) + "'s task, you quickly find the problem and give them some advice [+Skill]";
         },
         nothing_to_talk_about: function(d) {
-          return "I've got no idea what we can talk about now";
+          return "I don't have anything to talk to them about right now";
         },
         cant_talk_after_work: function(d) {
-          return "It's too late now and " + x(d.name, "en", " nominative".trim()) + " went offline, it is better to contact them later";
+          return "It's too late in the day, " + x(d.name, "en", " nominative".trim()) + " went offline. Try talking to them later.";
         }
       },
       task: {
         status: {
           not_started: function(d) {
-            return "Nobody has started working on this task";
+            return "No one has started working on this task";
           },
           in_dev: {
             you: function(d) {
-              return "Assigned to you now!";
+              return "Assigned to you!";
             },
             teammate: function(d) {
               return x(d.name, "en", " nominative".trim()) + " is currently working on this task";
@@ -351,14 +351,14 @@
           },
           in_review: {
             yours: function(d) {
-              return "You submitted this task to other team leads for review. This usually takes about one business day.";
+              return "You submitted this task to other team leads for review. This usually takes about 1 business day.";
             },
             teammate: function(d) {
               return x(d.name, "en", " genitive".trim()) + "'s task is completed and waiting for your review";
             }
           },
           in_testing: function(d) {
-            return "This task was submitted for testing. If everything goes well, this process takes about one business day, but if serious defects are found, the task can always be returned to the developer.";
+            return "This task was submitted for testing. If everything goes well, this process takes about 1 business day. But, if serious issues are found, the task can always be returned to the developer.";
           },
           done: function(d) {
             return "This task is in production now. Great job!";
@@ -369,7 +369,7 @@
             return "Go to CodeJunkie editor";
           },
           go_to_review: function(d) {
-            return "Review";
+            return "Review code";
           },
           assign_to_you: function(d) {
             return "Accept for development";
@@ -378,20 +378,20 @@
       },
       inbox: {
         review_info: function(d) {
-          return "As the developer completes a task, the code needs to be reviewed. Usually this task is assigned to the team lead (i.e. you)";
+          return "Once a developer completes a task, their code needs to be reviewed by their team lead (you)";
         },
         returned_to_dev: function(d) {
           return "It seems that the QA team has found serious bugs in this task and bounced it back to the developer";
         },
         production_bug: function(d) {
-          return "Support ticket. Apparently, serious bugs have been found in one of our tasks transferred to production. They need to be fixed within the limited period (as agreed with clients). Bugs left: " + d.num_bugs;
+          return "Support ticket. Apparently, some serious bugs have been found in one of our tasks that were transferred to production. They need to be fixed within a limited time period (as agreed with clients). Bugs left: " + d.num_bugs;
         },
         production_bug_fixed: function(d) {
-          return "It looks like all the problems reported in the ticket have been fixed and the clients have confirmed that there are no defects, you can relax";
+          return "It looks like all the problems reported in the ticket have been fixed and the clients have let you know that there aren't any more issues. You can relax";
         },
         action: {
           review: function(d) {
-            return "Review";
+            return "Review code";
           },
           mark_as_read: function(d) {
             return "Mark as read";
@@ -400,55 +400,55 @@
             return "Work on bugs (1 hr)";
           },
           do_something_else: function(d) {
-            return "Think it over";
+            return "Do something else";
           }
         }
       },
       browser: {
         jabr: function(d) {
-          return "Gabr is a popular resource with an ever-growing archive of technical articles";
+          return "DevTech Mag is a popular resource with tons of tech articles";
         },
         jabr_read: function(d) {
-          return "After scrolling through a couple of technical articles and a dozen holy wars in the comments, you feel increasingly big-brained [+Performance]";
+          return "After scrolling through a couple of tech articles and reading a dozen holy wars in the comments, you feel increasingly big-brained [+Performance]";
         },
         you_cube: function(d) {
-          return "What's new on your favorite video website?";
+          return "Want to see what's new on your favorite video website?";
         },
         you_cube_watched: function(d) {
-          return "After watching " + d.video + ", you feel completely free of any worries [-Burnout]";
+          return "After watching " + d.video + ", you feel a lot more relaxed [-Burnout]";
         },
         video: {
           v1: function(d) {
-            return "funny moments from The Office series";
+            return "funny clips from The Office TV show";
           },
           v2: function(d) {
-            return "a couple of Lapenko videos";
+            return "a couple of cat videos";
           },
           v3: function(d) {
-            return "an interview by Yury Dud";
+            return "an interview by Philip DeFranco";
           },
           v4: function(d) {
-            return "a review by Wylsacom";
+            return "a review by Marques Brownlee";
           },
           v5: function(d) {
-            return "Let's Play by Kuplinov";
+            return "a let's play by Markiplier";
           },
           v6: function(d) {
-            return "a series of Nasty Stories by ClickClack";
+            return "some WWE wrestling videos";
           },
           v7: function(d) {
-            return "a video by Syenduk";
+            return "a video by PewDiePie";
           },
           v8: function(d) {
-            return "a TiX episode";
+            return "an episode of The Mandolorian";
           },
           v9: function(d) {
-            return "a new invention video by KREOSAN";
+            return "a new invention video by TechZone";
           }
         },
         action: {
           read_jabr: function(d) {
-            return "Read Gabr (1 hr)";
+            return "Read DevTech Mag (1 hr)";
           },
           you_cube: function(d) {
             return "Watch YouCube (1 hr)";
@@ -485,7 +485,7 @@
           }
         },
         message: function(d) {
-          return d.day_started + ". Today is your well-deserved day off. You can continue working, but you'd better relax on the weekend.";
+          return d.day_started + ". It's the weekend, and you should enjoy your well-deserved days off. You can continue working, though, if you want.";
         },
         action: {
           rest: function(d) {
@@ -499,19 +499,23 @@
       game_over: {
         reason: {
           victory: function(d) {
-            return "Tasks went to production one by one and you didn't notice that the backlog ended. You did it! You met the deadline!";
+            return "All tasks went to production and you've just noticed that the backlog is empty. You did it! You met the deadline!";
           },
           deadline_failed: function(d) {
-            return "The deadline got closer day after day, week after week. You felt that this would happen, but you continued to work in some kind of zealous stupor hoping that things would sort themselves out. But they failed to do so. You missed the deadline. The customer is lost. The end.";
+            return "The deadline kept creeping closer, day after day, week after week. \n\nYou had a feeling this would happen, but you continued to work in some sort of zealous stupor, hoping that things would sort themselves out. But, they didn't. \n\nYou missed the deadline. The customer is lost. The end.";
           },
           fired: function(d) {
-            return 'Your computer unexpectedly locked. Cursing the PearNote developers for the umpteenth time, you tried to resume work by entering your password. The laptop continued to deny your legitimacy making a disgusting sound with every failed login attempt. "Apparently it is dead," you thought while taking out your phone to contact the helpdesk engineers. You get a new email. "Dismissed in one day for dereliction of duty." What?!';
+            return `Your computer unexpectedly locked itself. Cursing the PearNote developers for the millionth time, you entered your password to log back in. 
+
+It didn't work. The laptop angrily beeps at you. You try again. No luck.
+
+"Huh, must be broken," you think while taking out your phone to contact IT for help. You see a new email with the subject line "Fired for poor performance." What?!`;
           },
           bad_health: function(d) {
-            return "Recently you have been absorbed in your work, ignoring meals and sleep. You don't even notice as your skin becomes pale, and you have dark circles under your eyes. Your family members find you fainting right at the computer. You are brought to the hospital, and you can forget about work for the next couple of weeks, not to mention the approaching deadline.";
+            return "Recently, you've been really absorbed in your work, even ignoring meals and sleep. You were so focuesed that you didn't even notice your skin becoming pale and the dark circles under your eyes.\n\nYour family members find you passed out at the computer. You're brought to the hospital, and you can forget about working for the next couple of weeks, not to mention the approaching deadline.";
           },
           burnout: function(d) {
-            return "You forgot to what it feels like to relax. Completing task after task, you didn't notice that all your free time turned into work time. Suddenly something clicked inside you. Why do you need this all? Why all this effort? Where am I going? “Screw it all up! Damn the work, damn the deadline, I don't care anymore!”, you think and buy an air ticket to the place where your parents lived. Burnout is no joke, you know.";
+            return "You've forgotten what it feels like to relax. Completing task after task, you didn't notice that all your free time turned into work time. Suddenly something clicked in your head. Why do you need this all? Why all this effort? Where am I going? \n\n“Screw it all! Screw the work, Screw the deadline, I don't care anymore!” you yell while buying a plane ticket back to your hometown. Burnout is no joke, you know.";
           }
         },
         tip: {
@@ -522,7 +526,7 @@
             return "Work less after hours, including weekends!";
           },
           fired: function(d) {
-            return "Remember to attend important business meetings and track bugs in production (in your inbox)";
+            return "Remember to attend important business meetings and track bugs in your inbox";
           }
         },
         message: {
@@ -580,7 +584,7 @@
         return "Junior";
       },
       middle: function(d) {
-        return "Middle";
+        return "Mid-level";
       },
       senior: function(d) {
         return "Senior";
@@ -609,7 +613,7 @@
           return "Good";
         },
         fine: function(d) {
-          return "Feeble";
+          return "Weak";
         },
         bad: function(d) {
           return "Poor";
@@ -626,7 +630,7 @@
           return "Perfect";
         },
         good: function(d) {
-          return "HR reps begin to suspect something";
+          return "HR is starting to ask questions";
         },
         fine: function(d) {
           return "Conversations are underway with your manager";
@@ -646,7 +650,7 @@
           return "Perfect";
         },
         good: function(d) {
-          return "Light annoyance at work";
+          return "Lightly annoyed at work";
         },
         fine: function(d) {
           return "Hard to get up in the morning";
@@ -655,10 +659,10 @@
           return "Sick of working";
         },
         terrible: function(d) {
-          return "Almost burnt out";
+          return "Almost burned out";
         },
         zero: function(d) {
-          return "Burnt out";
+          return "Burned out";
         }
       },
       label: {
@@ -679,7 +683,7 @@
     chat: {
       action: {
         message_teammate: function(d) {
-          return "Write to " + x(d.name, "en", " dative".trim());
+          return "Respond to " + x(d.name, "en", " dative".trim());
         }
       },
       greetings: {
@@ -696,7 +700,7 @@
           return "Hello";
         },
         v5: function(d) {
-          return "What's up?";
+          return "Hey! What's up?";
         }
       },
       thanks: {
@@ -707,7 +711,7 @@
           return "Thank you!";
         },
         v3: function(d) {
-          return "Thank you!!";
+          return "Thanks so much!";
         }
       },
       figured_out: {
@@ -715,33 +719,33 @@
           return "Got it";
         },
         v2: function(d) {
-          return "All right, I figured it out, sorry";
+          return "All right, I figured it out. Thanks";
         },
         v3: function(d) {
-          return "Ah, I figured it out myself";
+          return "Nvm, I figured it out myself";
         },
         v4: function(d) {
-          return "Aha, I figured out the problem, don't mind me!";
+          return "Ah, I figured out the problem. Don't mind me!";
         },
         v5: function(d) {
-          return "I've understood it by myself, I'll write you if anything goes wrong";
+          return "I figured it out by myself, I'll let you know if anything else comes up";
         }
       },
       help: {
         v1: function(d) {
-          return "I've gotten stuck with " + d.task_name + ", can you help?";
+          return "I'm having issues with " + d.task_name + ". Can you help?";
         },
         v2: function(d) {
-          return "I can't understand " + d.task_name + " " + plural(d.sadness, 0, en, {one: "", "0": "(", "1": "((", other: "((("}) + " Can you help please?";
+          return "I'm having trouble figuring out " + d.task_name + " " + plural(d.sadness, 0, en, {one: "", "0": ":(", "1": ":((", other: ":((("}) + " \n\nCan you please help?";
         },
         v3: function(d) {
-          return "I'm stuck on " + d.task_name + ". Help me please?";
+          return "Hey, I'm stuck on " + d.task_name + ". Help, please?";
         },
         v4: function(d) {
-          return d.task_name + " is too much for me, can you help?";
+          return "Hey! " + d.task_name + " is too much for me, can you help?";
         },
         v5: function(d) {
-          return "Can I call you to discuss " + d.task_name + "? I can't figure out one problem";
+          return "Can I call you to talk about " + d.task_name + "? I can't figure out one problem";
         }
       }
     },
@@ -754,7 +758,7 @@
           return "John|John|John";
         },
         v3: function(d) {
-          return "David|David|David";
+          return "Alex|Alex|Alex";
         },
         v4: function(d) {
           return "Paul|Paul|Paul";
@@ -766,7 +770,7 @@
     },
     candidate: {
       first_names: function(d) {
-        return "Oliver|Harry|Jacob|Charles|Thomas|George|Oscar|James|William|Noah|Liam|Mason|Ethan|Michael|Alexander|Daniel|Joseph|Richard|Robert|Damian|Henry|Leo|Edward|Max|Samuel|Arthur";
+        return "Christopher|Sophia|Jacob|Emma|Tom|George|Emily|James|Will|Noah|Liam|Abby|Ethan|Michael|Alex|Daniel|Joe|Elizabeth|Robert|Aria|Henry|Leo|Edward|Max|Sam|Chloe";
       },
       last_names: function(d) {
         return "Smith|Jones|Williams|Brown|Taylor|Foster|Wilson|Evans|Thomas|Roberts|Johnson|Miller|Davis|Murphy|Martin|Roy|Lee|White|Bell|Burton|Stevens|Lewis|Walker|Payne|Baker|Holmes|Owen";
@@ -780,12 +784,12 @@
       },
       chat: {
         name: function(d) {
-          return "Limp Messenger";
+          return "Sling Messenger";
         }
       },
       calendar: {
         name: function(d) {
-          return "Clndr";
+          return "Calendar";
         }
       },
       editor: {
@@ -806,7 +810,7 @@
     },
     website: {
       blog: function(d) {
-        return "Gabr";
+        return "DevTech";
       },
       videos: function(d) {
         return "YouCube";
