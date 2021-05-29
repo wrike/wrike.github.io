@@ -4389,7 +4389,7 @@ ${i18n.overlay.game_over.message.restart()}`);
     const canvas = context.canvas;
     const width = game.canvas_width;
     const height = game.canvas_height;
-    const devicePixelRatio = window.devicePixelRatio ?? 1;
+    const devicePixelRatio = window.devicePixelRatio || 1;
     const backingStoreRatio = 1;
     const ratio = devicePixelRatio / backingStoreRatio;
     if (devicePixelRatio !== backingStoreRatio) {
