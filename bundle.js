@@ -538,9 +538,14 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           },
           tip: function(d) {
             return "Hint: " + d.tip;
-          },
+          }
+        },
+        action: {
           restart: function(d) {
-            return "Reload the page to restart.";
+            return "Restart the game";
+          },
+          learn_more: function(d) {
+            return "Or learn about engineering teams at Wrike";
           }
         }
       }
@@ -815,6 +820,9 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       videos: function(d) {
         return "YouCube";
       }
+    },
+    feedback_note: function(d) {
+      return "Got feedback or improvement ideas? Email us at techclub@team.wrike.com";
     }
   };
 
@@ -1323,9 +1331,14 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           },
           tip: function(d) {
             return "Подсказка: " + d.tip;
-          },
+          }
+        },
+        action: {
           restart: function(d) {
-            return "Перезагрузите страницу, чтобы начать заново.";
+            return "Начните заново";
+          },
+          learn_more: function(d) {
+            return "Или узнайте, как работают инжиниринговые команды в Wrike";
           }
         }
       }
@@ -1600,11 +1613,14 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       videos: function(d) {
         return "YouCube";
       }
+    },
+    feedback_note: function(d) {
+      return "Есть фидбек или идеи для улучшения? Пишите на techclub@team.wrike.com";
     }
   };
 
   // main/src/main.ts
-  var i18n = ru_default;
+  var i18n = en_default;
   var Button_State;
   (function(Button_State2) {
     Button_State2[Button_State2["default"] = 0] = "default";
@@ -3047,6 +3063,15 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       ctx.fillText(day_text, width - padding_side - time_width - day_width - 6, height / 2);
       pop_font();
     }
+    {
+      const text = i18n.feedback_note();
+      const font_size = 12;
+      push_font(font_size);
+      const text_width = ctx.measureText(text).width;
+      ctx.fillStyle = "rgba(33,33,33,0.6)";
+      ctx.fillText(text, width - padding_side - text_width, height + font_size / 2 + 8);
+      pop_font();
+    }
   }
   function draw_dock(width, height) {
     const color_top = "rgba(210,210,210,0.4)";
@@ -3952,8 +3977,13 @@ ${i18n.overlay.game_over.message.difficulty({difficulty: difficulty_name(game.di
 ${deadline_stats_message(true)}
 ${tip ? `
 ${i18n.overlay.game_over.message.tip({tip})}
-` : ""}
-${i18n.overlay.game_over.message.restart()}`);
+` : ""}`);
+        if (menu.button(i18n.overlay.game_over.action.restart())) {
+          window.location.reload();
+        }
+        if (menu.button(i18n.overlay.game_over.action.learn_more())) {
+          window.open("https://engineering.wrike.tech/");
+        }
         menu.finish();
         block_exit();
         break;
