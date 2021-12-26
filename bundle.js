@@ -1779,7 +1779,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
     const p = current_context().getTransform().transformPoint({x: x3, y});
     return xy(p.x, p.y);
   }
-  function mouse_can_interact_with_area(top_left_x, top_left_y, width, height) {
+  function mouse_can_interact_with_area(mouse, top_left_x, top_left_y, width, height) {
     const clip = current_clip();
     if (debug_buttons) {
       const cursor2 = point_to_screen_space(0, 0);
@@ -1791,8 +1791,8 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       pop_context();
     }
     if (clip) {
-      const check_x = game.mouse.x;
-      const check_y = game.mouse.y;
+      const check_x = mouse.x;
+      const check_y = mouse.y;
       let is_in_clip;
       if (clip.fixed) {
         const ctx = current_context();
@@ -1808,10 +1808,10 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
         return false;
     }
     const cursor = point_to_screen_space(0, 0);
-    return contains(game.mouse.x, game.mouse.y, cursor.x + top_left_x, cursor.y + top_left_y, width, height);
+    return contains(mouse.x, mouse.y, cursor.x + top_left_x, cursor.y + top_left_y, width, height);
   }
   function button_behavior(top_left_x, top_left_y, width, height) {
-    const hovered = mouse_can_interact_with_area(top_left_x, top_left_y, width, height);
+    const hovered = mouse_can_interact_with_area(game.mouse, top_left_x, top_left_y, width, height);
     if (hovered && !game.any_button_hovered_this_frame) {
       game.any_button_hovered_this_frame = true;
       if (!game.any_button_clicked_this_frame && was_button_clicked(0)) {
@@ -2567,9 +2567,9 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
     const top_bar_height = 56;
     const bottom_bar_height = 24;
     const content_padding = 32;
-    const inbox_width = 300;
-    const inbox_height = height - top_bar_height - bottom_bar_height - content_padding - content_padding - content_padding;
+    const content_height = height - top_bar_height - bottom_bar_height - content_padding - content_padding - content_padding;
     const ctx = current_context();
+    const scroll = game.mouse.last_scroll_event;
     ctx.fillStyle = background;
     ctx.fillRect(0, 0, width, height);
     function entry_text(entry) {
@@ -2590,64 +2590,71 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       const logo = images.logo_wrike.img;
       ctx.drawImage(logo, width / 2 - logo.width / 2 + 0.5, top_bar_height / 2 - logo.height / 2 + 0.5);
     }
-    {
-      const inbox_label_y = top_bar_height + content_padding;
-      const inbox_x = content_padding;
-      draw_block_title("Inbox", inbox_x, inbox_label_y);
-      const inbox_y = inbox_label_y + content_padding;
+    function draw_inbox(x3, y, entries) {
+      const inbox_width = 300;
+      const inbox_height = content_height;
+      const inbox_x = x3;
+      const inbox_y = y + content_padding;
       const block = draw_block(inbox_x, inbox_y, inbox_width, inbox_height);
       const entry_height = 90;
       push_clip(block, true);
-      const unread_entries = game.inbox.filter((entry) => !entry.read);
-      if (mouse_can_interact_with_area(inbox_x, inbox_y, inbox_width, inbox_height)) {
-        const max_scroll = unread_entries.length * entry_height;
+      if (scroll && mouse_can_interact_with_area(scroll, inbox_x, inbox_y, inbox_width, inbox_height)) {
+        const max_scroll = entries.length * entry_height;
         app.inbox_scroll_y = Math.max(0, Math.min(app.inbox_scroll_y + game.mouse.scroll_y, max_scroll - inbox_height));
       }
       ctx.translate(0, -app.inbox_scroll_y);
       const entry_x = inbox_x;
       let entry_y = inbox_y;
       const entry_padding = 16;
-      for (const entry of unread_entries) {
-        const state = button_behavior(entry_x, entry_y, inbox_width, entry_height);
-        if (state == 1) {
-          ctx.fillStyle = "#eee";
-          ctx.fillRect(entry_x, entry_y, inbox_width, entry_height);
+      if (entries.length > 0) {
+        for (const entry of entries) {
+          const state = button_behavior(entry_x, entry_y, inbox_width, entry_height);
+          if (state == 1) {
+            ctx.fillStyle = "#eee";
+            ctx.fillRect(entry_x, entry_y, inbox_width, entry_height);
+          }
+          if (state == 2) {
+            show_overlay({
+              type: 13,
+              entry,
+              at: point_to_screen_space(entry_x, entry_y + entry_height)
+            });
+          }
+          push_font(15);
+          const time_text = `${day_of_week_name(entry.received_at_day_of_week)}, ${hour_string(entry.received_at_hour)}`;
+          const padded_x = entry_x + entry_padding;
+          const time_y = entry_y + entry_padding;
+          ctx.fillStyle = "#aaa";
+          ctx.fillText(time_text, padded_x, time_y);
+          const name_y = time_y + 24;
+          ctx.fillStyle = "black";
+          ctx.fillText(entry.task.name, padded_x, name_y);
+          const text_y = name_y + 24;
+          ctx.fillStyle = entry.type == 2 ? inbox_warning : inbox_text;
+          ctx.fillText(entry_text(entry), padded_x, text_y);
+          pop_font();
+          draw_line(grid_color, 1, entry_x, entry_y + entry_height, entry_x + inbox_width, entry_y + entry_height);
+          entry_y += entry_height;
         }
-        if (state == 2) {
-          show_overlay({
-            type: 13,
-            entry,
-            at: point_to_screen_space(entry_x, entry_y + entry_height)
-          });
-        }
-        push_font(15);
-        const time_text = `${day_of_week_name(entry.received_at_day_of_week)}, ${hour_string(entry.received_at_hour)}`;
-        const padded_x = entry_x + entry_padding;
-        const time_y = entry_y + entry_padding;
-        ctx.fillStyle = "#aaa";
-        ctx.fillText(time_text, padded_x, time_y);
-        const name_y = time_y + 24;
-        ctx.fillStyle = "black";
-        ctx.fillText(entry.task.name, padded_x, name_y);
-        const text_y = name_y + 24;
-        ctx.fillStyle = entry.type == 2 ? inbox_warning : inbox_text;
-        ctx.fillText(entry_text(entry), padded_x, text_y);
+      } else {
+        const text = "No messages yet, come back later!";
+        const height2 = 14;
+        push_font(height2);
+        const width2 = ctx.measureText(text).width;
+        ctx.fillStyle = "#888";
+        const center_x = inbox_x + inbox_width / 2 - width2 / 2;
+        const center_y = inbox_y + inbox_height / 2 - height2 / 2;
+        ctx.fillText(text, center_x, center_y);
         pop_font();
-        draw_line(grid_color, 1, entry_x, entry_y + entry_height, entry_x + inbox_width, entry_y + entry_height);
-        entry_y += entry_height;
       }
       pop_clip();
     }
-    {
-      let draw_column_line = function(at_x) {
-        draw_line(grid_color, 1, at_x, tasks_y, at_x, tasks_y + inbox_height);
-      };
+    function draw_task_list(x3, y) {
       const tasks_label_y = top_bar_height + content_padding;
-      const tasks_x = content_padding + inbox_width + content_padding;
+      const tasks_x = content_padding + content_padding;
       const tasks_width = width - tasks_x - content_padding;
-      draw_block_title("Tasks", tasks_x, tasks_label_y);
       const tasks_y = tasks_label_y + content_padding;
-      draw_block(tasks_x, tasks_y, tasks_width, inbox_height);
+      draw_block(tasks_x, tasks_y, tasks_width, content_height);
       const row_height = 24;
       const status_indicator_side = 12;
       let row_y = tasks_y + row_height;
@@ -2669,11 +2676,11 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
         pop_font();
       }
       const tasks_area_y = tasks_y + row_height;
-      const tasks_area_height = inbox_height - row_height;
+      const tasks_area_height = content_height - row_height;
       const rect = new Path2D();
       rect.rect(tasks_x, tasks_area_y, tasks_width, tasks_area_height);
       push_clip(rect, true);
-      if (mouse_can_interact_with_area(tasks_x, tasks_area_y, tasks_width, tasks_area_height)) {
+      if (scroll && mouse_can_interact_with_area(scroll, tasks_x, tasks_area_y, tasks_width, tasks_area_height)) {
         const max_scroll = all_tasks().length * row_height;
         app.task_list_scroll_y = Math.max(0, Math.min(app.task_list_scroll_y + game.mouse.scroll_y, max_scroll - tasks_area_height));
       }
@@ -2736,6 +2743,9 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       pop_font();
       pop_clip();
       draw_line(grid_color, 1, tasks_x, row_y, tasks_x + tasks_width, row_y);
+      function draw_column_line(at_x) {
+        draw_line(grid_color, 1, at_x, tasks_y, at_x, tasks_y + content_height);
+      }
       draw_column_line(status_column_x - 10);
       draw_column_line(assignee_column_x - 10);
       draw_column_line(estimate_column_x - 10);
@@ -2775,6 +2785,40 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       } else if (task.status == 3) {
         return {name: "QA Team"};
       }
+    }
+    function draw_tab_button(tab, text, x3, y) {
+      const height2 = 18;
+      push_font(height2, "bolder");
+      const width2 = ctx.measureText(text).width;
+      const state = button_behavior(x3, y - height2 / 2, width2, height2);
+      if (state == 2) {
+        app.tab = tab;
+      }
+      if (state == 1) {
+        ctx.fillStyle = "#0287c4";
+      } else if (app.tab == tab) {
+        ctx.fillStyle = "#000";
+      } else {
+        ctx.fillStyle = "#888";
+      }
+      ctx.fillText(text, x3, y);
+      pop_font();
+      return width2;
+    }
+    const tab_bar_x = content_padding + content_padding;
+    const tab_bar_y = top_bar_height + content_padding;
+    let cursor_x = 0;
+    cursor_x += draw_tab_button("task_list", "Tasks", tab_bar_x, tab_bar_y);
+    cursor_x += draw_tab_button("inbox", "Inbox", tab_bar_x + cursor_x + 8, tab_bar_y);
+    const unread_entries = game.inbox.filter((entry) => !entry.read);
+    if (unread_entries.length > 0) {
+      draw_notification_bubble(tab_bar_x + cursor_x + 20, tab_bar_y, 8, unread_entries.length);
+    }
+    if (app.tab == "inbox") {
+      draw_inbox(tab_bar_x, tab_bar_y, unread_entries);
+    }
+    if (app.tab == "task_list") {
+      draw_task_list(tab_bar_x, tab_bar_y);
     }
   }
   function draw_code_editor(width, height) {
@@ -3073,10 +3117,20 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       pop_font();
     }
   }
+  function draw_notification_bubble(x3, y, r, notifications) {
+    const notifications_color = "#F44542";
+    fill_circle(notifications_color, x3, y, r);
+    const bubble_text = notifications.toString(10);
+    push_font(r + 4);
+    const ctx = current_context();
+    const text_width = ctx.measureText(bubble_text).width;
+    ctx.fillStyle = "#fff";
+    ctx.fillText(bubble_text, x3 - text_width / 2, y);
+    pop_font();
+  }
   function draw_dock(width, height) {
     const color_top = "rgba(210,210,210,0.4)";
     const color_bottom = "rgba(191,191,191,0.4)";
-    const notifications_color = "#F44542";
     const start_at = layout_cursor();
     const ctx = current_context();
     ctx.translate(start_at.x, start_at.y);
@@ -3100,16 +3154,9 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       const w = 64 + adjust, h = 64 + adjust;
       ctx.drawImage(image, 0, 0, image.width, image.height, x3, y, w, h);
       if (notifications > 0) {
-        const r = 12;
         const bubble_x = x3 + w;
         const bubble_y = 16 - adjust / 2;
-        fill_circle(notifications_color, bubble_x, bubble_y, r);
-        const bubble_text = notifications.toString(10);
-        push_font(16);
-        const text_width = ctx.measureText(bubble_text).width;
-        ctx.fillStyle = "#fff";
-        ctx.fillText(bubble_text, bubble_x - text_width / 2, bubble_y);
-        pop_font();
+        draw_notification_bubble(bubble_x, bubble_y, 12, notifications);
       }
       const result = button_behavior(x3, y, w, h);
       if (result == 1) {
@@ -4189,7 +4236,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
       set_layout_cursor(game.canvas_width / 2 - w / 2, game.canvas_height / 2 - h / 2);
     }
     function scale_dimension(original, min_ratio) {
-      const ratio = clamp(game.canvas_height / 900, min_ratio, 1);
+      const ratio = clamp(Math.min(game.canvas_width / 1920, game.canvas_height / 900), min_ratio, 1);
       return original * ratio;
     }
     switch (app.type) {
@@ -4214,7 +4261,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
         break;
       }
       case 2: {
-        const w = 1260, h = scale_dimension(620, 0.8);
+        const w = 960, h = scale_dimension(620, 0.8);
         push_layout(2);
         center_cursor(w, h);
         draw_window(w, h, i18n.app.wrike.name(), () => {
@@ -4322,7 +4369,15 @@ ${i18n.overlay.game_over.message.tip({tip})}
       type: 0,
       cursor: xy(30, 30)
     }];
-    game.mouse.scroll_y = game.mouse.scroll_y + (game.mouse.target_scroll_y - game.mouse.scroll_y) * 0.3;
+    game.clip_stack = new WeakMap();
+    for (const canvas of [game.overlay_ctx, game.main_ctx]) {
+      const rect = new Path2D();
+      const size = canvas.getTransform().transformPoint({x: game.canvas_width, y: game.canvas_height});
+      rect.rect(0, 0, size.x, size.y);
+      canvas.clip(rect);
+    }
+    const target_scroll_y = game.mouse.last_scroll_event ? game.mouse.last_scroll_event.target_y : 0;
+    game.mouse.scroll_y = game.mouse.scroll_y + (target_scroll_y - game.mouse.scroll_y) * 0.3;
     push_context(game.main_ctx);
     push_font(18);
     game.out.clearRect(0, 0, game.canvas_width * game.dpi_scale, game.canvas_height * game.dpi_scale);
@@ -4383,7 +4438,12 @@ ${i18n.overlay.game_over.message.tip({tip})}
     game.out.filter = "none";
     game.out.drawImage(game.overlay_ctx.canvas, 0, 0);
     game.out.canvas.style.cursor = game.any_button_hovered_this_frame ? "pointer" : "default";
-    game.mouse.target_scroll_y = 0;
+    if (game.mouse.last_scroll_event) {
+      game.mouse.last_scroll_event.target_y = 0;
+      if (game.mouse.scroll_y < 0.01) {
+        delete game.mouse.last_scroll_event;
+      }
+    }
     game.mouse.clicked = false;
     game.any_button_clicked_this_frame = false;
     game.any_button_hovered_this_frame = false;
@@ -4725,7 +4785,8 @@ ${i18n.overlay.game_over.message.tip({tip})}
       type: 2,
       dock_hover_time: 0,
       task_list_scroll_y: 0,
-      inbox_scroll_y: 0
+      inbox_scroll_y: 0,
+      tab: "task_list"
     }, {
       type: 3,
       dock_hover_time: 0
@@ -4783,7 +4844,6 @@ ${i18n.overlay.game_over.message.tip({tip})}
         y: 0,
         button: 0,
         clicked: false,
-        target_scroll_y: 0,
         scroll_y: 0
       },
       layout_stack: [],
@@ -4842,8 +4902,13 @@ ${i18n.overlay.game_over.message.tip({tip})}
       mouse.y = real_position.y;
     });
     backing_canvas.addEventListener("wheel", (event) => {
+      const real_position = cursor_position_on_canvas(event);
       const mouse = game.mouse;
-      mouse.target_scroll_y = event.deltaY;
+      mouse.last_scroll_event = {
+        target_y: event.deltaY,
+        x: real_position.x,
+        y: real_position.y
+      };
     });
     backing_canvas.addEventListener("contextmenu", (event) => event.preventDefault());
     start_animation_frame_loop(0);
