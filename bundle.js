@@ -834,13 +834,13 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
     overlay: {
       intro: {
         header: function(d) {
-          return "Вы - тимлид\nВаша команда:\n" + d.team;
+          return "Вы — тимлид\nВаша команда:\n" + d.team;
         },
         difficulty: function(d) {
           return "Сложность: " + d.difficulty;
         },
         teammate: function(d) {
-          return x2(d.name, "ru", " nominative".trim()) + " - специалист в " + d.skills;
+          return x2(d.name, "ru", " nominative".trim()) + " — специалист в " + d.skills;
         }
       },
       editor: {
@@ -863,25 +863,25 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           return "Работать над текущей задачей (1 ч.)";
         },
         work_done_1: function(d) {
-          return "Хрустнув пальцами, Вы приступили к работе. Спустя час непрерывного стука по клавиатуре Вы наконец дошли до состояния, когда можно сделать коммит";
+          return "Хрустнув пальцами, вы приступаете к работе. Спустя час непрерывного стука по клавиатуре вы наконец доходите до состояния, когда можно сделать коммит";
         },
         work_done_2: function(d) {
-          return "Потянувшись в кресле, Вы приступили к работе. Спустя час злостного рефакторинга Вы наконец дошли до состояния, когда можно сделать коммит";
+          return "Потянувшись в кресле, вы приступаете к работе. Спустя час злостного рефакторинга вы наконец доходите до состояния, когда можно сделать коммит";
         },
         work_done_3: function(d) {
-          return "Сделав глоток кофе, Вы приступили к работе. Спустя час распиливания сервисов Вы наконец дошли до состояния, когда можно сделать коммит";
+          return "Сделав глоток кофе, вы приступаете к работе. Спустя час распиливания сервисов вы наконец доходите до состояния, когда можно сделать коммит";
         },
         work_done_4: function(d) {
-          return "Глубоко вдохнув, Вы приступили к работе. Спустя час переписывания чужого кода Вы наконец дошли до состояния, когда можно сделать коммит";
+          return "Глубоко вдохнув, вы приступаете к работе. Спустя час переписывания чужого кода вы наконец доходите до состояния, когда можно сделать коммит";
         },
         passed_to_review: function(d) {
-          return "С чувством выполненного долга, Вы передали задачу в ревью";
+          return "С чувством выполненного долга вы передаете задачу в ревью";
         },
         tests_done: function(d) {
-          return "Поймав по пути пару багов, Вы покрыли большую часть кода тестами. На душе стало чуть-чуть спокойнее";
+          return "Поймав по пути пару багов, вы покрываете большую часть кода тестами. На душе становится чуть-чуть спокойнее";
         },
         qa_instructions_done: function(d) {
-          return "Попытавшись успокоить совесть, Вы подробно описали изменения сделанные в задаче и моменты, которые нужно тщательно протестировать. Это точно должно упростить и ускорить процесс QA";
+          return "Попытавшись успокоить совесть, вы подробно описываете сделанные в задаче изменения и моменты, которые нужно тщательно протестировать. Это точно должно упростить и ускорить процесс QA";
         },
         task_done: function(d) {
           return "С текущей задачкой покончено!";
@@ -907,23 +907,23 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       code_review: {
         look_at_code: {
           bad: function(d) {
-            return "Вы открыли задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. Код выглядит откровенно плохо";
+            return "Вы открываете задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. Код выглядит откровенно плохо";
           },
           not_too_bad: function(d) {
-            return "Вы открыли задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. Код смотрится довольно небрежным";
+            return "Вы открываете задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. Код смотрится довольно небрежным";
           },
           ok: function(d) {
-            return "Вы открыли задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. На первый взляд, код неплох";
+            return "Вы открываете задачу " + x2(d.name, "ru", " genitive".trim()) + " в вечно тормозящем GitPub'e. На первый взгляд, код неплох";
           }
         },
         passed_to_qa_without_looking: function(d) {
-          return "Недолго думая, Вы поставили 'Review OK' и передали задачу в QA. Своей команде Вы все-таки доверяете.";
+          return "Недолго думая, вы ставите 'Review OK' и передаете задачу в QA. Своей команде вы все-таки доверяете";
         },
         found_bugs: function(d) {
-          return "Тщательно прошерстив код, Вы обнаружили в нем несколько багов и спорных моментов. Задача возвращается обратно к разработчику.";
+          return "Тщательно прошерстив код, вы обнаруживаете в нем несколько багов и спорных моментов. Задача возвращается обратно к разработчику";
         },
         couldnt_find_bugs: function(d) {
-          return "Долго щурясь и всматриваясь в код, Вы все-же не смогли найти к чему придраться. Задача отправляется в тестирование";
+          return "Долго щурясь и всматриваясь в код, вы все-же не находите к чему придраться. Задача отправляется в тестирование";
         },
         action: {
           pass_to_qa_without_looking: function(d) {
@@ -1021,7 +1021,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       calendar: {
         lunch: {
           message: function(d) {
-            return "Сегодня в местной столовой как всегда людно. Отстояв в очереди, Вы купили " + d.food + " и с удовольствием пообедали. [+Здоровье]";
+            return "Сегодня в местной столовой, как всегда, людно. Отстояв в очереди, вы покупаете " + d.food + " и с удовольствием обедаете [+Здоровье]";
           },
           food: {
             v1: function(d) {
@@ -1057,23 +1057,23 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
             return "На еженедельных One on One встречах члены команды встречаются с их прямым менеджером и обсуждают рабочие и личные вопросы в свободной форме. Это помогает увеличить доверие между членами команды и выявить потенциальные проблемы заранее";
           },
           message: function(d) {
-            return "One on One прошел продуктивно. " + x2(d.name, "ru", " nominative".trim()) + " поделился своими переживаниями по поводу дедлайна и успехами в работе. Вы поделились кусочком тимлидской мудрости и " + x2(d.name, "ru", " nominative".trim()) + " явно остался доволен [+Навык]";
+            return "One on One прошел продуктивно. " + x2(d.name, "ru", " nominative".trim()) + " поделился своими переживаниями по поводу дедлайна и успехами в работе. Вы поделились кусочком тимлидской мудрости, и " + x2(d.name, "ru", " nominative".trim()) + " явно остался доволен [+Навык]";
           }
         },
         knowledge_sharing: {
           info: function(d) {
-            return "Knowledge Sharing - еженедельное событие на котором один из разработчиков освещает потенциально полезную коллегам тему. Тема сегодняшней встречи - " + d.topic;
+            return "Knowledge Sharing — еженедельное событие, на котором один из разработчиков освещает потенциально полезную коллегам тему. Тема сегодняшней встречи — " + d.topic;
           },
           message: function(d) {
-            return "Шейринг сегодня был максимально интересный. Вы буквально прозрели на тему " + d.topic + " и чувствуете, будто теперь можете вообще всё [+Производительность]";
+            return "Sharing сегодня был максимально интересный. Вы буквально прозрели на тему " + d.topic + " и чувствуете, будто теперь можете вообще всё [+Производительность]";
           }
         },
         interview: {
           info: function(d) {
-            return "Одна из Ваших обязанностей - участвовать в собеседованиях потенциальных кандидатов, в том числе в другие команды.";
+            return "Одна из Ваших обязанностей — участвовать в собеседованиях потенциальных кандидатов, в том числе в другие команды";
           },
           message: function(d) {
-            return "Собеседование как всегда было довольно выматывающим. Но сегодняшний кандидат, " + d.candidate_name + ", был довольно интересным.";
+            return "Собеседование, как всегда, было довольно выматывающим. Но сегодняшний кандидат, " + d.candidate_name + ", довольно интересный";
           }
         },
         lead_meeting: {
@@ -1085,7 +1085,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           }
         },
         already_started: function(d) {
-          return "Эта встреча уже началась, Вы опоздали!";
+          return "Эта встреча уже началась, вы опоздали!";
         },
         already_finished: function(d) {
           return "Это событие уже закончилось";
@@ -1124,13 +1124,13 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           }
         },
         helped: function(d) {
-          return "Свежим взглядом пробежавшись по задаче " + x2(d.name, "ru", " genitive".trim()) + ", Вы довольно быстро обнаружили проблему и мудрым советом помогли ему продолжить работу [+Навык]";
+          return "Свежим взглядом пробежавшись по задаче " + x2(d.name, "ru", " genitive".trim()) + ", вы довольно быстро обнаруживаете проблему и мудрым советом помогаете ему продолжить работу [+Навык]";
         },
         nothing_to_talk_about: function(d) {
           return "Не приходит в голову, о чем сейчас можно было бы поговорить";
         },
         cant_talk_after_work: function(d) {
-          return "Время уже не рабочее и " + x2(d.name, "ru", " nominative".trim()) + " ушел в оффлайн, лучше написать ему позже";
+          return "Время уже не рабочее, и " + x2(d.name, "ru", " nominative".trim()) + " ушел в оффлайн, лучше написать ему позже";
         }
       },
       task: {
@@ -1140,7 +1140,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           },
           in_dev: {
             you: function(d) {
-              return "Сейчас назначена на Вас!";
+              return "Сейчас назначена на вас!";
             },
             teammate: function(d) {
               return "Над этой задачей сейчас работает " + x2(d.name, "ru", " nominative".trim());
@@ -1148,14 +1148,14 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           },
           in_review: {
             yours: function(d) {
-              return "Вы передали эту задачу в ревью другим тимлидам. Обычно это занимает порядка одного рабочего дня.";
+              return "Вы передали эту задачу в ревью другим тимлидам. Обычно это занимает порядка одного рабочего дня";
             },
             teammate: function(d) {
-              return "Задача " + x2(d.name, "ru", " genitive".trim()) + " готова и ждет от Вас ревью";
+              return "Задача " + x2(d.name, "ru", " genitive".trim()) + " готова и ждет от вас ревью";
             }
           },
           in_testing: function(d) {
-            return "Эта задача была передана в тестирование. Если все идет нормально, этот процесс занимает порядка одного рабочего дня, но при обнаружении серьезных дефектов, задача всегда может быть возвращена разработчику.";
+            return "Эта задача передана в тестирование. Если все идет нормально, процесс занимает порядка одного рабочего дня, но при обнаружении серьезных дефектов задача всегда может быть возвращена разработчику";
           },
           done: function(d) {
             return "Эта задача уже на проде. Мы такие молодцы!";
@@ -1175,16 +1175,16 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       },
       inbox: {
         review_info: function(d) {
-          return "После выполнения задачи разработчиком необходимо провести ревью кода. Обычно эта задача ложится на тимлида (т.е. Вас)";
+          return "После выполнения задачи разработчиком необходимо провести ревью кода. Обычно эта задача ложится на тимлида (т.е. вас)";
         },
         returned_to_dev: function(d) {
           return "Судя по всему, команда QA обнаружила в этой задаче серьезные баги и вернула ее обратно разработчику";
         },
         production_bug: function(d) {
-          return "Тикет от саппорта. Судя по всему в одной из наших задач, которая уже уехала на прод, обнаружились серьезные баги. Их нужно исправить за отведенное время (по нашей договоренности с клиентами). Багов осталось: " + d.num_bugs;
+          return "Тикет от саппорта. В одной из наших задач, которая уже уехала на прод, обнаружились серьезные баги. Их нужно исправить за отведенное время (по нашей договоренности с клиентами). Багов осталось: " + d.num_bugs;
         },
         production_bug_fixed: function(d) {
-          return "Похоже, что все проблемы в тикете были исправлены, клиенты подтвердили отсутствие дефектов, можно расслабиться";
+          return "Похоже, что все проблемы в тикете исправлены, клиенты подтвердили отсутствие дефектов, можно расслабиться";
         },
         action: {
           review: function(d) {
@@ -1203,16 +1203,16 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       },
       browser: {
         jabr: function(d) {
-          return "Жабр - один из самых известных ресурсов с постоянно пополняющимся архивом технических статей";
+          return "Жабр — один из самых известных ресурсов с постоянно пополняющимся архивом технических статей";
         },
         jabr_read: function(d) {
-          return "Пролистав пару технических статей и с десяток холиваров в комментариях, Вы буквально чувствуете, как растет Ваш мозг [+Производительность]";
+          return "Пролистав пару технических статей и с десяток холиваров в комментариях, вы буквально чувствуете, как растет ваш мозг [+Производительность]";
         },
         you_cube: function(d) {
-          return "Интересно что нового на Вашем любимом сайте с видосиками?";
+          return "Интересно, что нового на вашем любимом сайте с видосиками?";
         },
         you_cube_watched: function(d) {
-          return "Посмотрев " + d.video + ", Вы чувствуете себя совершенно свободным от мирских забот [-Выгорание]";
+          return "Посмотрев " + d.video + ", вы чувствуете себя совершенно свободным от мирских забот [-Выгорание]";
         },
         video: {
           v1: function(d) {
@@ -1254,7 +1254,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       },
       computer: {
         finish_work_for_today: function(d) {
-          return "Завершить работу (на сегодня)";
+          return "Завершить работу на сегодня";
         }
       },
       weekend: {
@@ -1282,7 +1282,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           }
         },
         message: function(d) {
-          return d.day_started + ". Сегодня у Вас заслуженный выходной. Вы можете продолжить работать, но достоверно известно, что в выходные нужно отдыхать.";
+          return d.day_started + ". Сегодня у вас заслуженный выходной. Вы можете продолжить работать, но достоверно известно, что в выходные нужно отдыхать";
         },
         action: {
           rest: function(d) {
@@ -1296,19 +1296,19 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
       game_over: {
         reason: {
           victory: function(d) {
-            return "Задачка за задачкой уходили в прод и Вы едва успели заметить, как закончился беклог. Вы сделали это! Дедлайн побежден!";
+            return "Задачка за задачкой уходят в прод, и вы едва успеваете заметить, как закончился беклог. Вы сделали это! Дедлайн побежден!";
           },
           deadline_failed: function(d) {
-            return "День за днем, неделя за неделей, дедлайн подбирался всё ближе. Вы уже давно чувствовали, что это случится, но в каком-то рьяном ступоре продолжали работать, возможно надеясь, что оно как-то само собой рассосется. Не рассосалось. Дедлайн провален. Клиент потерян. Крышка.";
+            return "День за днем, неделя за неделей дедлайн подбирался всё ближе. Вы уже давно чувствовали, что это случится, но в каком-то рьяном ступоре продолжали работать, возможно надеясь, что оно как-то само собой рассосется. Не рассосалось. Дедлайн провален. Клиент потерян. Крышка.";
           },
           fired: function(d) {
-            return 'Ваш компьютер неожиданно заблокировался. В сотый раз проклиная производителей PearNote Вы попытались вернуться к работе, введя пароль. Ноутбук все продолжал отрицать легитимность его хозяина, издавая противный звук при каждой неудачной попытке входа. "Видимо ему совсем кранты", подумали Вы, доставая телефон, чтобы написать инженерам хелпдеска. На почту упало новое письмо. "Уволен одним днем за неисполнение служебных обязанностей". Что?!';
+            return "Ваш компьютер неожиданно блокируется. В сотый раз проклиная производителей PearNote, вы пытаетесь вернуться к работе, введя пароль. Ноутбук все продолжает отрицать легитимность его хозяина, издавая противный звук при каждой неудачной попытке входа. «Видимо, ему совсем кранты», — думаете вы, доставая телефон, чтобы написать инженерам хелпдеска. На почту падает новое письмо. «Уволен одним днем за неисполнение служебных обязанностей». Что?!";
           },
           bad_health: function(d) {
-            return "В последние дни Вы совсем погрузились в работу, игнорируя приемы пищи и сон. За всем этим Вы и не заметили, как кожа приобрела бледный оттенок, а под глазами появились синие мешки. Ваши родственники нашли Вас в состоянии обморока прямо у компьютера. Вы отправляетесь в больницу, о работе можно забыть на следующие пару недель, не говоря уже о приближающемся дедлайне.";
+            return "В последние дни вы совсем погрузились в работу, игнорируя приемы пищи и сон. За всем этим вы и не заметили, как кожа приобрела бледный оттенок, а под глазами появились синие мешки. Ваши родственники находят вас в состоянии обморока прямо у компьютера. Вы отправляетесь в больницу, о работе можно забыть на следующие пару недель, не говоря уже о приближающемся дедлайне.";
           },
           burnout: function(d) {
-            return 'Вы уже и забыли, что такое отдых. Закрывая задачу за задачей, Вы не заметили, как все свободное время превратилось в рабочее. В какой-то момент внутри Вас что-то щелкнуло. Зачем Вам вообще это нужно? К чему все эти старания? Куда я двигаюсь? "А пропади оно все пропадом! К черту работу, к черту дедлайн, мне уже все равно!", подумали Вы и купили авиабилет в Саратов, к родителям. Выгорание - это Вам не шутки.';
+            return "Вы уже и забыли, что такое отдых. Закрывая задачу за задачей, вы не замечаете, как все свободное время превращается в рабочее. В какой-то момент внутри вас что-то щелкает. Зачем вам вообще это нужно? К чему все эти старания? Куда я двигаюсь? «А пропади оно все пропадом! К черту работу, к черту дедлайн, мне уже все равно!», — думаете вы и покупаете авиабилет в Саратов к родителям. Выгорание — это вам не шутки.";
           }
         },
         tip: {
@@ -1431,7 +1431,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           return "HR'ы начинают что-то подозревать";
         },
         fine: function(d) {
-          return "С Вашим менеджером ведутся разговоры";
+          return "С вашим менеджером ведутся разговоры";
         },
         bad: function(d) {
           return "Оформляется Personal Improvement Plan";
@@ -1517,7 +1517,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           return "Разобрался";
         },
         v2: function(d) {
-          return "Всё, сам догнял, сорян";
+          return "Всё, сам догнал, сорян";
         },
         v3: function(d) {
           return "Ух, все, допер сам";
@@ -1534,16 +1534,16 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
           return "Я что-то залип с " + d.task_name + ", поможешь?";
         },
         v2: function(d) {
-          return "Не могу разобраться с " + d.task_name + " " + plural(d.sadness, 0, ru, {"0": "(", "1": "((", other: "((("}) + " Можешь помочь?";
+          return "Не могу разобраться с " + d.task_name + " " + plural(d.sadness, 0, ru, {"0": "(", "1": "((", other: "((("}) + ". Можешь помочь?";
         },
         v3: function(d) {
-          return "Что-то я совсем застрял на " + d.task_name + ".. Подсобишь?";
+          return "Что-то я совсем застрял на " + d.task_name + ". Подсобишь?";
         },
         v4: function(d) {
           return d.task_name + " оказалась мне не по силам, поможешь?";
         },
         v5: function(d) {
-          return "Можем созвониться по " + d.task_name + "? Не могу разобрать одну проблему";
+          return "Можем созвониться по " + d.task_name + "? Не могу разобрать одну проблему.";
         }
       }
     },
@@ -1744,6 +1744,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
   var dev_mode = false;
   var debug_clip = false;
   var debug_buttons = false;
+  var update_after_event_for_ms = 1e3;
   var image_cache = new Map();
   function embed_base64(from_path) {
     return from_path;
@@ -2617,7 +2618,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
             show_overlay({
               type: 13,
               entry,
-              at: point_to_screen_space(entry_x, entry_y + entry_height)
+              at: point_to_screen_space(entry_x + inbox_width, entry_y)
             });
           }
           push_font(15);
@@ -3031,6 +3032,9 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
     pop_clip();
     ctx.setTransform(transform);
   }
+  function should_draw_day_end_tip() {
+    return game.day == 0 && game.hour_of_day >= work_end_hour && game.overlay.type != 9;
+  }
   function draw_top_bar(width) {
     const ctx = current_context();
     const color_bg = "rgba(210,210,210,0.4)";
@@ -3065,7 +3069,7 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
         ctx.fillStyle = "rgba(99,161,255,0.4)";
         ctx.fillRect(pear_x, 0, total_width, height);
       }
-      if (game.day == 0 && game.hour_of_day >= work_end_hour && game.overlay.type != 9) {
+      if (should_draw_day_end_tip()) {
         ctx.fillStyle = "#fff";
         const tip_text = i18n.top_bar.finish_work_tip();
         const tip_x = (Math.sin(game.time / 250) + 1) * 15 + name_x + name_width + 32;
@@ -3267,12 +3271,14 @@ It didn't work. The laptop angrily beeps at you. You try again. No luck.
     }
     delete game.current_app;
   }
+  function overlay_show_time() {
+    return game.overlay.type == 14 ? 2e3 : 100;
+  }
   function draw_overlay_screen() {
     const overlay = game.overlay;
     function draw_menu_background(x3, y, width, height) {
-      const overlay_show_time = game.overlay.type == 14 ? 2e3 : 100;
       const rect = path_rounded_rect(x3, y, width, height, 4);
-      const opacity = (game.time - game.overlay_shown_at) / overlay_show_time;
+      const opacity = (game.time - game.overlay_shown_at) / overlay_show_time();
       ctx.shadowBlur = 8;
       ctx.shadowColor = `rgba(119, 119, 119, ${opacity})`;
       ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
@@ -4448,11 +4454,23 @@ ${i18n.overlay.game_over.message.tip({tip})}
     game.any_button_clicked_this_frame = false;
     game.any_button_hovered_this_frame = false;
   }
+  function screen_should_be_animating() {
+    const showing_overlay = game.overlay.type != 0 && game.time <= game.overlay_shown_at + overlay_show_time();
+    return game.time <= game.stop_updating_at || should_draw_day_end_tip() || showing_overlay;
+  }
   function start_animation_frame_loop(time) {
-    requestAnimationFrame((time2) => start_animation_frame_loop(time2));
-    game.frame_time = time - game.time;
-    game.time = time;
-    do_one_frame();
+    if (game.currentlyRequestedAnimationFrame)
+      cancelAnimationFrame(game.currentlyRequestedAnimationFrame);
+    if (screen_should_be_animating()) {
+      game.currentlyRequestedAnimationFrame = requestAnimationFrame((time2) => {
+        start_animation_frame_loop(time2);
+      });
+      game.frame_time = time - game.time;
+      game.time = time;
+      do_one_frame();
+    } else {
+      console.log("STOP ANIMATING");
+    }
   }
   var canvas_cache = new WeakMap();
   function fix_canvas_dpi_scale(context, scale = true) {
@@ -4805,6 +4823,14 @@ ${i18n.overlay.game_over.message.tip({tip})}
     game.team = generate_team();
     refresh_events_for_today();
   }
+  function poke_animation_loop() {
+    const already_animating = screen_should_be_animating();
+    game.stop_updating_at = game.time + update_after_event_for_ms;
+    if (!already_animating) {
+      console.log("START ANIMATING");
+      start_animation_frame_loop(game.time);
+    }
+  }
   function create_game() {
     const canvas_element = document.getElementById("canvas");
     if (!canvas_element) {
@@ -4867,6 +4893,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
         attended_meetings_today: []
       },
       overlay_shown_at: 0,
+      stop_updating_at: 0,
       backlog: [],
       overlay: {
         type: 1
@@ -4894,12 +4921,14 @@ ${i18n.overlay.game_over.message.tip({tip})}
       mouse.x = real_position.x;
       mouse.y = real_position.y;
       mouse.button = event.button;
+      poke_animation_loop();
     });
     backing_canvas.addEventListener("mousemove", (event) => {
       const real_position = cursor_position_on_canvas(event);
       const mouse = game.mouse;
       mouse.x = real_position.x;
       mouse.y = real_position.y;
+      poke_animation_loop();
     });
     backing_canvas.addEventListener("wheel", (event) => {
       const real_position = cursor_position_on_canvas(event);
@@ -4909,6 +4938,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
         x: real_position.x,
         y: real_position.y
       };
+      poke_animation_loop();
     });
     backing_canvas.addEventListener("contextmenu", (event) => event.preventDefault());
     start_animation_frame_loop(0);
