@@ -4035,7 +4035,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
           window.location.reload();
         }
         if (menu.button(i18n.overlay.game_over.action.learn_more())) {
-          window.open("https://engineering.wrike.tech/");
+          window.open("https://www.wrike.com/wrike-engineering/");
         }
         menu.finish();
         block_exit();
