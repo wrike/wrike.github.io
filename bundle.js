@@ -3677,7 +3677,7 @@ ${deadline_stats_message(true)}`);
               if (task.assigned_to.you) {
                 return i18n.overlay.task.status.in_review.yours();
               } else {
-                return i18n.overlay.task.status.in_review.teammate({name: task.assigned_to.teammate});
+                return i18n.overlay.task.status.in_review.teammate({name: task.assigned_to.teammate.name});
               }
             }
             case 3: {
@@ -4437,7 +4437,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
     }
     const target_blur = game.overlay.type == 0 ? 0 : 2;
     game.blur = game.blur + (target_blur - game.blur) * 0.1;
-    if (game.blur > 0.1) {
+    if (game.blur_supported && game.blur > 0.1) {
       game.out.filter = `blur(${game.blur}px)`;
     }
     game.out.drawImage(game.main_ctx.canvas, 0, 0);
@@ -4856,6 +4856,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
     }
     const overlay_ctx = create_additional_context();
     const main_ctx = create_additional_context(false);
+    const inferior_browser = navigator.userAgent.toLowerCase().includes("firefox");
     const days_until_deadline = 26;
     game = {
       canvas_width: base_width,
@@ -4880,6 +4881,7 @@ ${i18n.overlay.game_over.message.tip({tip})}
       frame_time: 0,
       blur: 0,
       dpi_scale: 1,
+      blur_supported: !inferior_browser,
       difficulty: 0,
       day: 0,
       deadline_day: days_until_deadline,
